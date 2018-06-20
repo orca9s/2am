@@ -9,7 +9,7 @@ class Post(models.Model):
     user = models.ForeignKey(
         BlogUser,
         on_delete=models.CASCADE,
-        related_name='my_post',
+        related_name='user_post',
     )
     title = models.CharField(max_length=50)
     content = models.TextField()
