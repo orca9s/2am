@@ -17,8 +17,20 @@ class Post(models.Model):
 
     @property
     def like_users(self):
+        # PostLike중에서 post가 self인 경우인 목록들의 user
+
+        # 리스트를 반환
         return [post_like.user for post_like in PostLike.objects.filter(post=self)]
+
+        # 쿼리셋을 반환
+        user_id_list = [post_like.user.id for post_like in PostLike.objects.filter(post=self)]
+        return BlogUser.objects.filter(id__in=user_id_list)
+
         # return f'이 글에 좋아요를 누른 사람{self.post_likes.all()}'
+        # result = []
+        # for post_like in PostLike.objects.filter(post=self):
+        #     result.append(post_like.user)
+        # return BlogUser.objects.filter(id__in=PostLike.objects.filter(post=self).values_list('id', flat=True))
 
     def __str__(self):
         return f'제목:{self.title}'

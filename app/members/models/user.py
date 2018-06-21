@@ -1,4 +1,5 @@
 from django.db import models
+# from blog.models import Post, PostLike
 
 __all__ = (
     'BlogUser',
@@ -21,6 +22,12 @@ class BlogUser(models.Model):
         related_name='block_friends',
         symmetrical=False,
         blank=True,
+    )
+
+    # 문자열로 처리해야지 Poost를 가져올때 오류가 안난다.
+    like_posts = models.ManyToManyField(
+        'blog.Post',
+        through='blog.PostLike',
     )
 
     @property
