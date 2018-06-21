@@ -17,7 +17,8 @@ class Post(models.Model):
 
     @property
     def like_users(self):
-        return f'이 글에 좋아요를 누른 사람{self.post_likes.all()}'
+        return [post_like.user for post_like in PostLike.objects.filter(post=self)]
+        # return f'이 글에 좋아요를 누른 사람{self.post_likes.all()}'
 
     def __str__(self):
         return f'제목:{self.title}'
