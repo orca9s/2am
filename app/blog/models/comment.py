@@ -18,6 +18,13 @@ class Comment(models.Model):
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
+    @property
+    def like_users(self):
+        return f'이 댓글에 좋아요를 누른사람: {self.comments_likes.all()}'
+
+    def __str__(self):
+        return f'{self.user}님이 작성한 댓글'
+
 
 class CommentLike(models.Model):
     comment = models.ForeignKey(
@@ -33,4 +40,4 @@ class CommentLike(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.comment
+        return f'{self.user}'

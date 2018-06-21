@@ -23,5 +23,13 @@ class BlogUser(models.Model):
         blank=True,
     )
 
+    @property
+    def post(self):
+        return f'내가 작성한 글 목록: {self.user_post.all()}'
+
+    @property
+    def comments(self):
+        return f'내가 작성한 댓글 목록: {self.user_comments.all()}'
+
     def __str__(self):
         return self.name

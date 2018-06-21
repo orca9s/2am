@@ -15,6 +15,13 @@ class Post(models.Model):
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
 
+    @property
+    def like_users(self):
+        return f'이 글에 좋아요를 누른 사람{self.post_likes.all()}'
+
+    def __str__(self):
+        return f'제목:{self.title}'
+
 
 class PostLike(models.Model):
     # 여기선 post에서 받아오기 때문에 변수명을 post로 지정
@@ -29,3 +36,6 @@ class PostLike(models.Model):
         related_name='user_post_likes'
     )
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.user}'
